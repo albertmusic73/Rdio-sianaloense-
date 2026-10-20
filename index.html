@@ -20,7 +20,8 @@
 // Stream URL supplied for the station. If Radio.co gives you a different public stream URL, replace it here.
 const STREAM_URL = 'https://streamer.radio.co/s818ad4751/listen';
 const audio = document.getElementById('radio'); const btn = document.getElementById('playButton'); const statusText = document.getElementById('status'); const volume = document.getElementById('volume');
-audio.src = STREAM_URL; audio.volume = Number(volume.value);
+audio.src = STREAM_URL;audio.load();
+audio.volume = Number(volume.value);                                                                                                                                                                                                                                                                                                                                          
 function showPaused(){btn.textContent='▶';btn.setAttribute('aria-label','Reproducir radio');btn.title='Reproducir';}
 function showPlaying(){btn.textContent='Ⅱ';btn.setAttribute('aria-label','Pausar radio');btn.title='Pausar';}
 btn.addEventListener('click', async()=>{if(!audio.paused){audio.pause();showPaused();statusText.textContent='Reproducción pausada.';return;}statusText.textContent='Conectando con la transmisión…';try{await audio.play();showPlaying();statusText.textContent='Conectado. ¡Gracias por escuchar!';}catch(e){showPaused();statusText.textContent='No se pudo iniciar el audio. El enlace de transmisión puede no estar activo; confirma la URL pública en Radio.co.';}});
